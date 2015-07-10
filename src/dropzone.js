@@ -56,7 +56,20 @@ DropzoneComponent = React.createClass({
         this.dropzone = new Dropzone(React.findDOMNode(self), options);
         this.setupEvents();
     },
-
+    
+    /**
+     * React 'componentWillReceiveProps' method
+     * The props might have changed so resetup up dropzone.js with the component.
+     */
+    componentWillReceiveProps: function(nextProps) {
+        var self = this,
+            options = this.getDjsConfig();
+        
+        this.dropzone.destroy();
+        this.dropzone = new Dropzone(React.findDOMNode(self), options);
+        this.setupEvents();
+    },
+    
     /**
      * React 'componentWillUnmount'
      * Removes dropzone.js (and all its globals) if the component is being unmounted
